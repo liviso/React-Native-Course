@@ -3,7 +3,6 @@
 const fetchFilmsMiddleware = ({ dispatch, getState }) => next => action => {
     if (action.type === 'FETCH_FILMS') {
 
-        console.log("2");
         fetch('http://localhost:5000/api/films')
             .then(res => res.json())
             .then(res => {
