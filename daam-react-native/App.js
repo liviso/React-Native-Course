@@ -9,11 +9,12 @@ export default class App extends React.Component {
     super();
     this.state = store.getState();
     console.log(store.getState());
-
+console.log("constructor");
     store.subscribe(() => this.setState(store.getState()))
   }
 
   componentDidMount(){
+    console.log("fetching");
     store.dispatch({type: 'FETCH_FILMS'});
   }
 

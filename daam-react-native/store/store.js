@@ -7,5 +7,5 @@ const initialState = {
     selected_date: new Date(),
     selected_films: {}
   }
-
+console.log("3");
 export const store = createStore(reducer, initialState, applyMiddleware(...middlewares));

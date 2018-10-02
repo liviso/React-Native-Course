@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-
+import {FilmBrief} from './FilmBrief'
 
 export class Landing extends React.Component {
 
@@ -20,11 +20,8 @@ export class Landing extends React.Component {
 
 
                 {this.props.films.map(film => (
-                    <View>
-                        <Text>Title: {film.title}</Text>
-                        <Text>TagName: {film.tagline}</Text>
-                        <Image source={{ uri: `http://localhost:5000/${film.poster_path}` }} style={styles.container} />
-                    </View>
+                   <FilmBrief film={film} key={film.id}>
+                   </FilmBrief>
 
                 ))}
 
@@ -34,10 +31,3 @@ export class Landing extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        width: 50,
-        height: 50
-
-    },
-});
