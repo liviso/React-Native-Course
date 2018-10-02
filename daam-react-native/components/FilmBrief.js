@@ -16,6 +16,7 @@ export class FilmBrief extends React.Component {
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         width: 50,
