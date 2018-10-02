@@ -1,12 +1,17 @@
 import React from 'react';
-import { Text, View, Image, Button, StyleSheet, ScrollView, SafeAreaView, DatePickerIOS, DatePickerAndroid, Platform } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, Modal, ScrollView, SafeAreaView, DatePickerIOS, DatePickerAndroid, Platform, StatusBar } from 'react-native';
 import { FilmBrief } from './FilmBrief'
-import {DatePicker} from './DatePicker';
+import { DatePicker } from './DatePicker';
+import {store} from '../store/store.js'
+import {FilmDetails} from './FilmDetails';
 
 export class Landing extends React.Component {
 
+    constructor(props){
+        super(props);
+    }
+
     setDate(date) {
-        console.log("DATE: ", date);
     }
     pickDate() {
         DatePickerAndroid.open({
@@ -18,13 +23,39 @@ export class Landing extends React.Component {
         )
     }
 
-    render() {
+    wasFound(films) {
+        for (const film of films) {
+            if (film == this.props.selected_film) {
 
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+    }
+
+    closeModal(){
+        store.dispatch({type:"HIDE_FILM_DETAILS"});
+    }
+
+   
+    render() {
+        const showingsArray=[{id:'5bb292a29f7576d74498f190',
+    showing_time: '2018-10-04T01:30:00.000Z'}];
         return (
 
 
 
             <SafeAreaView >
+                <Modal visible={this.props.showFilmDetails}>
+                <FilmDetails  showings={showingsArray} 
+                selected_date={this.state.selected_date}
+                film={this.props.selected_films}/>
+                    <Button title="Done" onPress={this.closeModal} />
+
+                </Modal>
                 <ScrollView>
                     <View>
 
@@ -37,16 +68,17 @@ export class Landing extends React.Component {
 
 
                         </Text>
-                            <DatePicker/>
+                        <DatePicker />
 
 
                         {this.props.films.map(film => (
-                            <FilmBrief film={film} key={film.id} />
+                            <FilmBrief film={film} key={film.id} isSelected={false} />
 
 
                         ))}
                     </View>
                 </ScrollView>
+
             </SafeAreaView>
 
         )

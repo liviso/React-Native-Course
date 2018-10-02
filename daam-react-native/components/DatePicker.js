@@ -16,16 +16,15 @@ export class DatePicker extends React.Component {
         return { ...store.getState() };
     }
 
-    setDate(date){
-        const  showIOSPicker = false;
+    setDate = (date) => {
         store.dispatch({type:'SET_SELECTED_DATE', date: date});
+        this.setState({showIOSPicker: false});
     }
 
     showModal = () => {
         
         if(Platform.OS ==='ios'){
-            console.log("IOS...");
-            this.setState({showIOSPicker:true})
+            this.setState({showIOSPicker: !this.state.showIOSPicker})
         }
         DatePickerAndroid.open({
             date: new Date()
@@ -37,7 +36,6 @@ export class DatePicker extends React.Component {
     }
 
     render() {
-        console.log("VALUE: "+ this.state.showIOSPicker);
         const dateSelected=`Showing time for: ${this.state.selected_date.toDateString()}`
         return (
             <View>

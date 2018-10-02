@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import {Landing} from './components/Landing'
 import { store } from './store/store.js'
+import { Checkout } from './components/Checkout';
 
 export default class App extends React.Component {
 
@@ -17,10 +18,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-     
       <View style={styles.container}>
-      
-       <Landing films={this.state.films}/>
+      <StatusBar barStyle="dark-content"></StatusBar>
+{/*       <Landing films={this.state.films} 
+       selected_films={this.state.selected_films}
+       showFilmDetails={this.state.showFilmDetails}/>
+    */}
+      <Checkout></Checkout>
+
       </View>
      
     );
@@ -34,6 +39,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 });

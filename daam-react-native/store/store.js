@@ -5,6 +5,7 @@ import middlewares from './middleware.js'
 const initialState = {
     films: [],
     selected_date: new Date(),
-    selected_films: {}
+    selected_films: {},
+    showFilmDetails: false
   }
 export const store = createStore(reducer, initialState, applyMiddleware(...middlewares));
