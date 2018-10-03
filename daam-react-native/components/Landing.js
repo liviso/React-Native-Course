@@ -51,7 +51,7 @@ export class Landing extends React.Component {
             <SafeAreaView >
                 <Modal visible={this.props.showFilmDetails}>
                 <FilmDetails  showings={showingsArray} 
-                selected_date={this.state.selected_date}
+                selected_date={this.props.selected_date}
                 film={this.props.selected_films}/>
                     <Button title="Done" onPress={this.closeModal} />
 

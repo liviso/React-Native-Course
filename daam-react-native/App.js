@@ -20,11 +20,11 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
       <StatusBar barStyle="dark-content"></StatusBar>
-{/*       <Landing films={this.state.films} 
+     <Landing films={this.state.films} 
        selected_films={this.state.selected_films}
-       showFilmDetails={this.state.showFilmDetails}/>
-    */}
-      <Checkout></Checkout>
+       showFilmDetails={this.state.showFilmDetails}
+       selected_date={this.state.selected_date}/>
+     {/* <Checkout></Checkout>*/}
 
       </View>
      

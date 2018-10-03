@@ -13,10 +13,11 @@ export  class Checkout extends React.Component {
   render() {
     return (
     <SafeAreaView>
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView behavior="padding" enabled>
     
-      <View>
+      
        <ScrollView>
+           <View>
            <Text>Checking-Out</Text>
            <Text >First Name:</Text><TextInput></TextInput>
            <Text >Last Name:</Text><TextInput></TextInput>
@@ -24,8 +25,9 @@ export  class Checkout extends React.Component {
            <Text >Email:</Text><TextInput keyboardType='email-address'></TextInput>
            <Text >Phone:</Text><TextInput keyboardType='phone-pad'></TextInput>
            <Button title="Purchase" onPress={this.purchase}></Button>
+           </View>
        </ScrollView>
-      </View>
+      
       </KeyboardAvoidingView>
       </SafeAreaView>
     );
