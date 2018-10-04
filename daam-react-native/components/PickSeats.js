@@ -3,47 +3,50 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, Button } from 'react-
 import { Card } from 'react-native-material-cards'
 import tables from '../json/tables.json'
 
+
 export class PickSeats extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    render() {
+    navigateScreen = () => {
+       // this.props.navigation.navigate('Checkout', {checkout: this.props.navigation.state.params});
+    }
 
-        
+    render() {
         return (
             <SafeAreaView style={stylesPickSeats.container}>
                 <View style={stylesPickSeats.titleSection}>
                     <Text>Choose your seats for</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>MOVIE TITLE</Text>
-                    <Text style={{fontSize: 10}}>on</Text>
-                    <Text>Saturday, January 23, 3:30 pm</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{this.props.navigation.state.params.selected_film.title}</Text>
+                    <Text style={{ fontSize: 10 }}>on</Text>
+                    <Text>{this.props.navigation.state.params.selected_date.toDateString()}</Text>
                 </View>
                 <ScrollView >
-                {tables.map(table => (
-           <Card style={[stylesPickSeats.cardTable]} >
-           <Text>Table {table.table_number}</Text>
-          <View style={{flexDirection: 'row'}}>
-          {
-               table.seats.map(seat =>
-               
-               <View>
-                   {
-                seat.status=='seatIsTaken'?
-                <Text key={seat._id}  style={{color:'red'}} >   Seat {seat.seat_number}</Text>
-                :
-                <Text key={seat._id} style={{color:'green'}}>   Seat {seat.seat_number}   </Text>
-             
-               }
-               </View>
-               )}
-          </View>
-       </Card>
-            ))}
-                
+                    {tables.map(table => (
+                        <Card style={[stylesPickSeats.cardTable]} >
+                            <Text key={table.id}>Table {table.table_number}</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                {
+                                    table.seats.map(seat =>
+
+                                        <View>
+                                            {
+                                                seat.status == 'seatIsTaken' ?
+                                                    <Text key={seat._id} style={{ color: 'red' }} >   Seat {seat.seat_number}</Text>
+                                                    :
+                                                    <Text key={seat._id} style={{ color: 'green' }}>   Seat {seat.seat_number}   </Text>
+
+                                            }
+                                        </View>
+                                    )}
+                            </View>
+                        </Card>
+                    ))}
+
                 </ScrollView>
                 <View style={stylesPickSeats.checkoutButton}>
-                    <Button title="Checkout"></Button>
+                    <Button  onPress={this.navigateScreen} title="Checkout"></Button>
                 </View>
             </SafeAreaView>
         );
@@ -63,7 +66,8 @@ const stylesPickSeats = StyleSheet.create({
         flex: 7
     },
     cardTable:{
-        height: 45,
+        height: 35,
+        top:30
     },
     checkoutButton: {
         flex: 6

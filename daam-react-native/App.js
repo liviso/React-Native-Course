@@ -4,13 +4,34 @@ import {Landing} from './components/Landing'
 import { store } from './store/store.js'
 import { Checkout } from './components/Checkout';
 import { PickSeats } from './components/PickSeats';
+import { createStackNavigator } from 'react-navigation';
+import {Ticket} from './components/Ticket';
+
+const routes={
+  Landing:{screen:Landing},
+  PickSeats:{screen:PickSeats},
+  Checkout:{screen:Checkout},
+  Ticket:{screen: Ticket}
+}
+
+const stackNavConfig={
+  initialRouteName:'Landing',
+  navigationOptions:{
+    headerStyle:{backgroundColor:'pink'},
+    headerTintColor:{backgroundColor:'blue'},
+    headerTitleStyle: {fontWeight: 'bold',}
+    
+  },
+}
+const MyStackNavigator=createStackNavigator(routes,stackNavConfig);
 
 export default class App extends React.Component {
 
   constructor(){
     super();
     this.state = store.getState();
-    store.subscribe(() => this.setState(store.getState()))
+    store.subscribe(() => this.setState(store.getState()));
+   
   }
 
   componentDidMount(){
@@ -18,19 +39,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-      <StatusBar barStyle="dark-content"></StatusBar>
-   {/*  <Landing films={this.state.films} 
-       selected_films={this.state.selected_films}
-       showFilmDetails={this.state.showFilmDetails}
-    selected_date={this.state.selected_date}/> */}
-    {/* <Checkout></Checkout> */}  
-     <PickSeats/> 
-
-      </View>
-     
-    );
+    return <MyStackNavigator/>;
   }
 }
 

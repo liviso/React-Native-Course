@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, SafeAreaView } from 'react-native';
 import {store} from '../store/store.js'
+import {ShowingTimes} from './ShowingTimes'
+import showings from '../json/showings.json'
 
 export  class FilmDetails extends React.Component {
   constructor(props) {
     super(props);
+    
   }
 
   closeModal(){
@@ -12,45 +15,44 @@ export  class FilmDetails extends React.Component {
 }
 
   render() {
-      console.log(this.props.film.poster_path);
+      console.log(this.props);
     return (
-      <View style={stylesModal.modalContainer}>
-        <Image source={{ uri:`http://localhost:5000/${this.props.film.poster_path}`}} style={stylesModal.icon}></Image>
-        <View style={stylesModal.detailsFilm}>
-            <View>
-            <Text style={[stylesModal.showingText]}> Showing time for: {this.props.selected_date.toDateString()}</Text>
-            {/*this.props.showings.map(showing=>{
-                <Text key={showing.id} >{showing.showing_time}</Text>
-
-            })*/}
-            </View>
-            <View style={{top: 35}}>
-               <View>
-               <Text style={{fontWeight: 'bold', fontSize: 20}} >{this.props.film.title} </Text>
-               <Text>{this.props.film.tagline} </Text>
-               <Text style={{fontSize: 11}}>{this.props.film.homepage}</Text>
-               </View>
-               <View style={{top: 15}}>
-               <Text >{this.props.film.overview}</Text>
-               </View>
-                <View style={{top: 35}}>
-                <Text >Release Date: {this.props.film.release_date}</Text>
+        <SafeAreaView style={{flex: 1}}>
+            <View style={{flex: 2}}>
+                <Image source={{ uri: `http://localhost:5000/${this.props.film.poster_path}` }} style={stylesModal.icon}></Image>
+                <View>
+                    <Text> Showing time for: 10/10/2018</Text>
+                    <Text>Showing Time:</Text>
+                    {showings.map(showing => (
+                        <ShowingTimes key={showing.id} showing_time={showing.showing_time} chooseTime={this.props.chooseTime}/>
+                    ))}
                 </View>
-               
-               <View style={{top: 50, flexDirection: 'row', justifyContent:'space-around'}}>
-                <Text > Rating: {this.props.film.vote_average} / 10</Text>
-                <Text style={{fontSize: 10}}>{this.props.film.vote_count} votes</Text>
-                
-               </View>
-               <View style={{top: 75}}>
-
-<Button  title="Done" onPress={this.closeModal} />
-               </View>
-                
-                
             </View>
-        </View>
-      </View>
+            <View style={{flex: 1.6, justifyContent:'space-around' }}>
+                <View>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }} >{this.props.film.title} </Text>
+                    <Text>{this.props.film.tagline} </Text>
+                    <Text style={{ fontSize: 11 }}>{this.props.film.homepage}</Text>
+                </View>
+                <View>
+                    <Text >{this.props.film.overview}</Text>
+                </View>
+                <View>
+                    <Text >Release Date: {this.props.film.release_date}</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', justifyContent:'space-between'}} >
+                    <Text > Rating: {this.props.film.vote_average} / 10</Text>
+                    <Text style={{ fontSize: 10 }}>{this.props.film.vote_count} votes</Text>
+
+                </View>
+                <View>
+
+                    <Button title="Done" onPress={this.closeModal} />
+                </View>
+
+            </View>
+        </SafeAreaView>
     );
   }
 }
@@ -65,16 +67,5 @@ const stylesModal = StyleSheet.create({
         width:350,
         height:300,
         resizeMode: 'contain'
-    },
-    detailsFilm:{
-        flex: 1,
-        top: 20
-    },
-    showingText: {
-        fontWeight: 'bold',
-        textAlign:'center'
-    },
-    topInfo: {
-        top: 20
     }
 });

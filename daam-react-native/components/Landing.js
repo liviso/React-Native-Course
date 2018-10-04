@@ -6,9 +6,15 @@ import {store} from '../store/store.js'
 import {FilmDetails} from './FilmDetails';
 
 export class Landing extends React.Component {
+    static navigationOptions = {
+        header: null
+    }
 
     constructor(props){
         super(props);
+        this.state = store.getState();
+        store.subscribe(() => this.setState(store.getState()));
+        console.log(this.state.selected_films);
     }
 
     setDate(date) {
@@ -25,7 +31,7 @@ export class Landing extends React.Component {
 
     wasFound(films) {
         for (const film of films) {
-            if (film == this.props.selected_film) {
+            if (film == this.state.selected_film) {
 
                 return true;
             } else {
@@ -36,6 +42,11 @@ export class Landing extends React.Component {
 
     }
 
+    chooseTime = showing => {
+        store.dispatch({type:"HIDE_FILM_DETAILS"});
+        this.props.navigation.navigate('PickSeats', {showing, selected_film: this.state.selected_films, selected_date: this.state.selected_date});
+    }
+
     closeModal(){
         store.dispatch({type:"HIDE_FILM_DETAILS"});
     }
@@ -44,31 +55,31 @@ export class Landing extends React.Component {
     render() {
         const showingsArray=[{id:'5bb292a29f7576d74498f190',
     showing_time: '2018-10-04T01:30:00.000Z'}];
+    console.log(this.state);
         return (
+        <SafeAreaView>
+            <View style={stylesHeader.container}>
+                <Image source={{ uri: `https://image4.owler.com/logo/cinepolis_owler_20160226_201852_original.png` }} style={stylesHeader.icon} />
 
-
-
-            <SafeAreaView >
-                <View style={stylesHeader.container}>
-                    <Image source={{ uri: `https://image4.owler.com/logo/cinepolis_owler_20160226_201852_original.png` }} style={stylesHeader.icon} />
-
-                    <Text style={stylesHeader.titlePage}> Dinner and a Movie </Text>
+                <Text style={stylesHeader.titlePage}> Dinner and a Movie </Text>
+            </View>
+            <Modal visible={this.state.showFilmDetails}>
+                <FilmDetails showings={showingsArray}
+                    selected_date={this.state.selected_date}
+                    film={this.state.selected_films}
+                    chooseTime={this.chooseTime}
+                    showings={this.state.showings} />
+            </Modal>
+            <ScrollView>
+                <View>
+                    <Text style={stylesHeader.textMovie}> Tap a movie below to see its details. Then pick a date to see show times.</Text>
+                    <DatePicker style={stylesHeader.textMovie} />
+                    {this.state.films.map(film => (
+                        <FilmBrief style={stylesHeader.textMovie} film={film} key={film.id} isSelected={false} />
+                    ))}
                 </View>
-                <Modal visible={this.props.showFilmDetails}>
-                    <FilmDetails  showings={showingsArray} 
-                                selected_date={this.props.selected_date}
-                                film={this.props.selected_films}/>
-                </Modal>
-                <ScrollView>
-                    <View>
-                        <Text style={stylesHeader.textMovie}> Tap a movie below to see its details. Then pick a date to see show times.</Text>
-                        <DatePicker style={stylesHeader.textMovie}/>
-                        {this.props.films.map(film => (
-                            <FilmBrief  style={stylesHeader.textMovie} film={film} key={film.id} isSelected={false} />
-                        ))}
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
+            </ScrollView>
+         </SafeAreaView >
 
         )
     }

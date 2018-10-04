@@ -13,6 +13,8 @@ export const reducer = (state, action) => {
         return {...state, showFilmDetails: false}
         case 'SHOW_FILM_DETAILS':
         return {...state, showFilmDetails: true}
+        case "SET_SHOWINGS":
+      return { ...state, showings: action.showings };
         default:
             return state;
     }
