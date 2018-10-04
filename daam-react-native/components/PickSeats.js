@@ -21,25 +21,26 @@ export class PickSeats extends React.Component {
                 </View>
                 <ScrollView >
                 {tables.map(table => (
-           <Card style={[stylesPickSeats.cardTable, {backgroundColor: 'green'}]} >
+           <Card style={[stylesPickSeats.cardTable]} >
            <Text>Table {table.table_number}</Text>
           <View style={{flexDirection: 'row'}}>
           {
                table.seats.map(seat =>
                
-                <Text key={seat._id}>Seat {seat.seat_number}  </Text>
-                
+               <View>
+                   {
+                seat.status=='seatIsTaken'?
+                <Text key={seat._id}  style={{color:'red'}} >   Seat {seat.seat_number}</Text>
+                :
+                <Text key={seat._id} style={{color:'green'}}>   Seat {seat.seat_number}   </Text>
+             
+               }
+               </View>
                )}
           </View>
        </Card>
             ))}
-                    
-                    <Card style={[stylesPickSeats.cardTable, {backgroundColor: 'red'}]}>
-                    <Text>Table 11</Text>
-                        <Text> Seat 1    Seat 2    Seat 3</Text>
-                        <Text> Seat 4</Text>
-                    </Card>
-                   
+                
                 </ScrollView>
                 <View style={stylesPickSeats.checkoutButton}>
                     <Button title="Checkout"></Button>
@@ -59,12 +60,12 @@ const stylesPickSeats = StyleSheet.create({
         alignItems: 'center'
     },
     tableSeats: {
-        flex: 10
+        flex: 7
     },
     cardTable:{
-        height: 60,
+        height: 45,
     },
     checkoutButton: {
-        flex: 2
+        flex: 6
     }
 });
