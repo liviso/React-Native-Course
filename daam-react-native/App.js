@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import {Landing} from './components/Landing'
 import { store } from './store/store.js'
 import { Checkout } from './components/Checkout';
+import { PickSeats } from './components/PickSeats';
 
 export default class App extends React.Component {
 
@@ -20,11 +21,12 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
       <StatusBar barStyle="dark-content"></StatusBar>
-     <Landing films={this.state.films} 
+   {/*  <Landing films={this.state.films} 
        selected_films={this.state.selected_films}
        showFilmDetails={this.state.showFilmDetails}
-       selected_date={this.state.selected_date}/>
-     {/* <Checkout></Checkout>*/}
+    selected_date={this.state.selected_date}/> */}
+    {/* <Checkout></Checkout> */}  
+     <PickSeats/> 
 
       </View>
      

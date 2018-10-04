@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button,DatePickerAndroid,Platform, DatePickerIOS } from 'react-native';
+import { View, Text, Button,DatePickerAndroid,Platform, DatePickerIOS, StyleSheet } from 'react-native';
 import { store } from '../store/store.js'
 
 export class DatePicker extends React.Component {
@@ -38,12 +38,12 @@ export class DatePicker extends React.Component {
     render() {
         const dateSelected=`Showing time for: ${this.state.selected_date.toDateString()}`
         return (
-            <View>
+            <View style={this.props.style} >
                 {   this.state.showIOSPicker ?                 
                 <DatePickerIOS 
                 date={this.state.selected_date}
                 onDateChange={this.setDate} />  :
-                <Button onPress={this.showModal} title={dateSelected} ></Button>
+                <Button   onPress={this.showModal} title={dateSelected} ></Button>
                 }
 
             </View>
@@ -51,3 +51,10 @@ export class DatePicker extends React.Component {
         );
     }
 }
+
+const stylesHeader = StyleSheet.create({
+    action: {
+        fontSize:1,
+        backgroundColor:'pink'
+    }
+});

@@ -49,45 +49,49 @@ export class Landing extends React.Component {
 
 
             <SafeAreaView >
-                <Modal visible={this.props.showFilmDetails}>
-                <FilmDetails  showings={showingsArray} 
-                selected_date={this.props.selected_date}
-                film={this.props.selected_films}/>
-                    <Button title="Done" onPress={this.closeModal} />
+                <View style={stylesHeader.container}>
+                    <Image source={{ uri: `https://image4.owler.com/logo/cinepolis_owler_20160226_201852_original.png` }} style={stylesHeader.icon} />
 
+                    <Text style={stylesHeader.titlePage}> Dinner and a Movie </Text>
+                </View>
+                <Modal visible={this.props.showFilmDetails}>
+                    <FilmDetails  showings={showingsArray} 
+                                selected_date={this.props.selected_date}
+                                film={this.props.selected_films}/>
                 </Modal>
                 <ScrollView>
                     <View>
-
-                        <Text>
-                            Dinner and a Movie
-                </Text>
-                        <Text>
-                            Film Details...
-
-
-
-                        </Text>
-                        <DatePicker />
-
-
+                        <Text style={stylesHeader.textMovie}> Tap a movie below to see its details. Then pick a date to see show times.</Text>
+                        <DatePicker style={stylesHeader.textMovie}/>
                         {this.props.films.map(film => (
-                            <FilmBrief film={film} key={film.id} isSelected={false} />
-
-
+                            <FilmBrief  style={stylesHeader.textMovie} film={film} key={film.id} isSelected={false} />
                         ))}
                     </View>
                 </ScrollView>
-
             </SafeAreaView>
 
         )
     }
 }
 
-const styles = StyleSheet.create({
+const stylesHeader = StyleSheet.create({
     container: {
-        top: 50
+        flexDirection: 'row'
     },
+    icon: {
+        flex:1
+    },
+    titlePage: {
+        fontWeight: 'bold',
+        fontSize:20,
+        flex:3
+    },
+    textMovie:{
+        top:10
+    }
 });
+
+
+
+
 
